@@ -1,0 +1,27 @@
+# Python environment
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Jupyter temporary files
+.ipynb_checkpoints/
+
+# Raw and processed datasets
+data/raw/
+data/processed/
+
+# Transaction-level samples
+reports/duplicate_samples.csv
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Editor settings
+.vscode/
+
+# Temporary files
+*.tmp
+~$*
