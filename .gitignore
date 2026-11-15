@@ -25,3 +25,12 @@ reports/duplicate_samples.csv
 # Temporary files
 *.tmp
 ~$*
+# Local SQLite databases
+*.db
+*.db-shm
+*.db-wal
+# Generated SQLite databases
+*.db
+*.db-shm
+*.db-wal
+*.db-journal

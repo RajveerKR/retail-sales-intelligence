@@ -46,6 +46,53 @@ def build_reporting_dataset():
     # Mark identified customers
     df["HasCustomerID"] = df["Customer ID"].notna()
 
+    # Identify known non-merchandise charges
+    stock_code = (
+        df["StockCode"]
+        .astype("string")
+        .str.upper()
+        .str.strip()
+    )
+
+    description = (
+        df["Description"]
+        .astype("string")
+        .str.upper()
+        .str.strip()
+    )
+
+    # Provisional business classification
+    charge_codes = {
+    "DOT",
+    "POST",
+    "C2",
+    "BANK CHARGES",
+    "23444"
+}
+
+    df["ProductCategory"] = "Merchandise"
+
+    df.loc[
+        stock_code.isin(charge_codes),
+        "ProductCategory"
+    ] = "Non-Merchandise Charge"
+
+    # Manual adjustments are classified separately
+    df.loc[
+        stock_code == "M",
+        "ProductCategory"
+    ] = "Manual / Review"
+
+    # Reporting flags
+    df["IsMerchandise"] = (
+        df["ProductCategory"] == "Merchandise"
+    )
+
+    df["IsNonMerchandise"] = (
+        df["ProductCategory"] == "Non-Merchandise Charge"
+    )
+
+
     # Define reporting scenario
     df["ReportingScenario"] = "Review Required"
 
